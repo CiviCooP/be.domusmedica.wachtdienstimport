@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/wachtdienstimport/upload</path>
+    <page_callback>CRM_Wachtdienstimport_Form_Upload</page_callback>
+    <title>Importeer Wachtdienst activiteiten</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/wachtdienstimport/uploadresult</path>
+    <page_callback>CRM_Wachtdienstimport_Page_UploadResult</page_callback>
+    <title>UploadResult</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

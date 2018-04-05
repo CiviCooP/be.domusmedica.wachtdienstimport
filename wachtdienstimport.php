@@ -138,15 +138,23 @@ function wachtdienstimport_civicrm_preProcess($formName, &$form) {
  * Implements hook_civicrm_navigationMenu().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
+ **/
 function wachtdienstimport_civicrm_navigationMenu(&$menu) {
-  _wachtdienstimport_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
+  _wachtdienstimport_civix_insert_navigation_menu($menu, 'kringen', array(
+    'label' => E::ts('Wachtdienst Import'),
+    'name' => 'wachtdienstupload',
+    'url' => 'civicrm/wachtdienstimport/upload',
+    'permission' => 'access CiviReport,access CiviContribute',
+    'operator' => 'OR',
+    'separator' => 0,
+  ));
+  _wachtdienstimport_civix_insert_navigation_menu($menu, 'kringen', array(
+    'label' => E::ts('Wachtdienst uitvallijst'),
+    'name' => 'wachtdienstuploadresult',
+    'url' => 'civicrm/wachtdienstimport/uploadresult',
     'permission' => 'access CiviReport,access CiviContribute',
     'operator' => 'OR',
     'separator' => 0,
   ));
   _wachtdienstimport_civix_navigationMenu($menu);
-} // */
+}
