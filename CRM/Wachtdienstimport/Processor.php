@@ -206,7 +206,7 @@ class CRM_Wachtdienstimport_Processor {
       $activity = civicrm_api3('Activity', 'create', array(
         'is_test' => $testOption==='T'?1:0,
         'status_id' =>  'Completed',
-        'activity_type_id' => 'domusmedica_wachtpostdienst',
+        'activity_type_id' =>  'Wachtpostdienst',
         'subject' => 'Wachtdienst '.$dao->arts_naam,
         'activity_date_time' => $dtStart->format('Y-m-d H:i'),
         'source_contact_id' => $dao->contact_id,
