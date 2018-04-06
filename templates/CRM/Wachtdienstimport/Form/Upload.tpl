@@ -12,6 +12,11 @@
       {ts 1=$uploadSize}Maximum Upload File Size: %1 MB{/ts}
     </td>
   </tr>
+  <tr>
+    <td>{$form.testOption.label}</td>
+    <td>{$form.testOption.html}<br />
+
+  </tr>
 </table>
 <p>Het te importeren bestand moet de volgende indeling hebben:</p>
 <div class="crm-submit-buttons">

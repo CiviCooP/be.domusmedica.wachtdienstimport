@@ -12,7 +12,7 @@ class CRM_Wachtdienstimport_Page_UploadResult extends CRM_Core_Page {
         'id' => $dao->id,
         'contact_id' => $dao->contact_id,
         'contact_naam' => $dao->contact_name,
-        'message' => $dao ->message,
+        'message' => unserialize($dao ->message)
       );
       $failures[]=$row;
     }

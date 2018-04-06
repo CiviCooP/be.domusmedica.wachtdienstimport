@@ -28,6 +28,11 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
     )), 'maxfilesize', $uploadFileSize);
     // $this->addRule('uploadFile', ts('Input file must be in CSV format'), 'utf8File');
     // $this->addRule('uploadFile', ts('A valid file must be uploaded.'), 'uploadedfile');
+    $this->addRadio('testOption',ts('Test Opties'),array(
+      'D'=> 'Dry Run - test wel voor errors, voer niet uit',
+      'T'=> 'Test - maak activiteiten aan, maar met de test indicator',
+      'P'=> 'Maak activiteiten aan, zonder test indicator'
+    ));
     $this->addButtons(array(
       array(
         'type' => 'submit',
@@ -37,6 +42,11 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
     ));
     CRM_Utils_System::setTitle(E::ts('Import van wachtdienst activiteiten'));
     parent::buildQuickForm();
+  }
+
+  public function setDefaultValues(){
+    return array('testOption'=>'D');
+
   }
 
   public function preProcess()
@@ -51,6 +61,8 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
 
   public function postProcess() {
 
+    $values = $this->controller->exportValues($this->_name);
+
     $processor = new CRM_Wachtdienstimport_Processor();
 
     $queue = CRM_Queue_Service::singleton()->create(array(
@@ -60,7 +72,7 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
     ));
 
 
-    $processor->fillQueue($queue);
+    $processor->fillQueue($queue,$values['testOption']);
 
     $url = CRM_Utils_System::url('civicrm/wachtdienstimport/uploadresult', 'reset=1');;
     $runner = new CRM_Queue_Runner(array(

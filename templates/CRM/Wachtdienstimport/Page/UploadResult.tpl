@@ -12,7 +12,10 @@
             <tr>
                 <td>{$row.id}</td>
                 <td>{$row.contact_id}</td>
-                <td>{$row.message}</td>
+                <td>{foreach from=$row.message item=messageline}
+                      {$messageline}<br/>
+                    {/foreach}
+                </td>
             </tr>
         {/foreach}
     </table>
