@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: klaas
- * Date: 6-4-18
- * Time: 10:41
+ * Configuratie signleton, eenmalig lezen van configuratie constanten
+ *
+ * @author Klaas Eikelbooml (CiviCooP) <klaas.eikelboom@civicoop.org>
+ * @date 3-april-2018
+ * @license AGPL-3.0
+ *
  */
 
 class CRM_Wachtdienstimport_Config {

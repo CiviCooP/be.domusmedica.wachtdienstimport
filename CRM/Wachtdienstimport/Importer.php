@@ -3,7 +3,7 @@
  * Imports the CVS permamed file into the temporary import table
  *
  * @author Klaas Eikelbooml (CiviCooP) <klaas.eikelboom@civicoop.org>
- * @date 4-jan-2018
+ * @date 3-april-2018
  * @license AGPL-3.0
  *
  */

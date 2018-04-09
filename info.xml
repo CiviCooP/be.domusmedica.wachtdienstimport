@@ -20,7 +20,7 @@
   <compatibility>
     <ver>4.7</ver>
   </compatibility>
-  <comments>Deze module is nieuw, er heeft nog geen ontwikkeling plaatsgevonden</comments>
+  <comments>Speciefiek voor de Domus Medica Kringen situatie (maar gebruik vooral de ideëen)</comments>
   <civix>
     <namespace>CRM/Wachtdienstimport</namespace>
   </civix>

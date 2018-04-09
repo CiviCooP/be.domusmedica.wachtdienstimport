@@ -1,8 +1,19 @@
 <?php
+/**
+ * Uitvallijst van de wachtdienst upload
+ *
+ * @author Klaas Eikelbooml (CiviCooP) <klaas.eikelboom@civicoop.org>
+ * @date 3-april-2018
+ * @license AGPL-3.0
+ *
+ */
 use CRM_Wachtdienstimport_ExtensionUtil as E;
 
 class CRM_Wachtdienstimport_Page_UploadResult extends CRM_Core_Page {
 
+  /**
+   * @return array
+   */
   private function failures(){
     $failures = array();
     $dao = CRM_Core_DAO::executeQuery("
@@ -19,13 +30,12 @@ class CRM_Wachtdienstimport_Page_UploadResult extends CRM_Core_Page {
     return $failures;
   }
 
+  /**
+   * @return null|void
+   */
   public function run() {
-    // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
-    CRM_Utils_System::setTitle(E::ts('UploadResult'));
-
-    // Example: Assign a variable for use in a template
+    CRM_Utils_System::setTitle(E::ts('Uitvallijst wachtdienst import'));
     $this->assign('failures',$this->failures());
-
     parent::run();
   }
 

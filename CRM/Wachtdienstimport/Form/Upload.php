@@ -1,4 +1,12 @@
 <?php
+/**
+ * Form om het bestand voor de wachtdiensten te kunnen laden
+ *
+ * @author Klaas Eikelbooml (CiviCooP) <klaas.eikelboom@civicoop.org>
+ * @date 3-april-2018
+ * @license AGPL-3.0
+ *
+ */
 
 use CRM_Wachtdienstimport_ExtensionUtil as E;
 
@@ -9,6 +17,9 @@ use CRM_Wachtdienstimport_ExtensionUtil as E;
  */
 class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
 
+  /**
+   *
+   */
   public function buildQuickForm()
   {
 
@@ -44,11 +55,17 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
     parent::buildQuickForm();
   }
 
+  /**
+   * Standaard default waarde voor testOption is DryRun
+   * @return array|NULL
+   */
   public function setDefaultValues(){
     return array('testOption'=>'D');
-
   }
 
+  /**
+   * leest het bestand in naar de verwerkingstabel
+   */
   public function preProcess()
   {
     if (isset($this->_submitFiles['uploadFile'])) {
@@ -59,6 +76,9 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
     }
   }
 
+  /**
+   * verwerkt het ingelezen bestand
+   */
   public function postProcess() {
 
     $values = $this->controller->exportValues($this->_name);
@@ -86,6 +106,5 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
 
     parent::postProcess();
   }
-
 
 }

@@ -1,17 +1,23 @@
 <?php
-
 /**
  * Process the import_wachtdienst tabel met with the civicrm_api3
  *
  * @author Klaas Eikelbooml (CiviCooP) <klaas.eikelboom@civicoop.org>
- * @date 4-jan-2018
+ * @date 3-april-2018
  * @license AGPL-3.0
  *
  */
 class CRM_Wachtdienstimport_Processor {
 
+  /**
+   * Wordt gebruikt voor het inlezen van datum tijd constanten.
+   */
   const DATETIMEFORMAT = 'd-m-Y H:i';
 
+  /**
+   * Grootte van de verwerkinsstap
+   * @var int
+   */
   private $stepsize;
 
   /**
@@ -23,6 +29,10 @@ class CRM_Wachtdienstimport_Processor {
     $this->stepsize = $stepsize;
   }
 
+  /**
+   * Rekent het aantal stappen uit (gebruikt hierbij stepsize).
+   * @return int
+   */
   private function calcSteps() {
     $calcRows = CRM_Core_DAO::singleValueQuery('SELECT count(1) FROM import_wachtdienst WHERE processed = %1', array(
       '1' => array('N', 'String'),
@@ -31,6 +41,14 @@ class CRM_Wachtdienstimport_Processor {
   }
 
 
+  /**
+   * Voert één stap in de verwerking uit.
+   *
+   * @param \CRM_Queue_TaskContext $ctx
+   * @param $testOption
+   *
+   * @return bool
+   */
   public function process(CRM_Queue_TaskContext $ctx,$testOption) {
     $dao = CRM_Core_DAO::executeQuery('SELECT * FROM import_wachtdienst WHERE processed = %1 LIMIT %2', array(
       '1' => array('N', 'String'),
@@ -46,7 +64,13 @@ class CRM_Wachtdienstimport_Processor {
     return TRUE;
   }
 
-  public function fillQueue($queue,$testOption) {
+  /**
+   * Vult de queue die de verwerking uitvoert.
+   *
+   * @param $queue
+   * @param $testOption
+   */
+  public function fillQueue($queue, $testOption) {
     $calcSteps = $this->calcSteps();
     for ($i = 0; $i <= $calcSteps; $i++) {
       $task = new CRM_Queue_Task(
@@ -62,6 +86,7 @@ class CRM_Wachtdienstimport_Processor {
   }
 
   /**
+   * Verwerkt precies één record
    * @param $dao
    */
   private function processRecord($dao,$testOption) {
@@ -72,54 +97,21 @@ class CRM_Wachtdienstimport_Processor {
        processing if they find and error.
     */
     $errors = array();
-    /* warnings function the same way as errors, except that
-       generating a warning does not stop the processing
-       (however it is reported back)
-    */
-    $warnings = array();
-    /* context is used to pass technical keys from on
-       processing function to another. At the moment two
-       keys are passed
-       - contact_id  id of the arts
-       - praktijk_id is (id of the connected organization
-    */
-    $context = array();
 
     try {
-
-      /* processing functions have all the same structure
-         - check for errors - if so skip
-         - check if the field that must me updated is in
-           the input - if so skip
-         - look if the object to be created already exists
-           finds its technical id.
-         - create or update the object (using the api and its id)
-         - fill the context if needed
-         - fill the errors
-         - return
-
-         however there are differences how the functions map
-         the import table fields to the api arguments
-
-         1) a specialist functions does the mapping inside the
-            function (such a function is used one time e.g
-            procesPraktijk.
-         2) a generic function does the mapping outside the function
-            (below, example processEmail)
-      */
 
       $this->processCheck($dao, $errors,$testOption);
     } catch (Exception $ex) {
       $errors[] = $ex;
     }
-    if (empty($errors+$warnings)) {
+    if (empty($errors)) {
       CRM_Core_DAO::executeQuery('UPDATE import_wachtdienst SET processed = %2,message=null WHERE id=%1', array(
         1 => array($dao->id, 'Integer'),
         2 => array('S', 'String'),
       ));
     }
     else {
-      $message = serialize($errors+$warnings);
+      $message = serialize($errors);
       CRM_Core_DAO::executeQuery('UPDATE import_wachtdienst SET processed = %2, message=%3 WHERE id=%1', array(
         1 => array($dao->id, 'Integer'),
         2 => array('F', 'String'),
@@ -186,7 +178,6 @@ class CRM_Wachtdienstimport_Processor {
       $errors[] = "Einddatum onjuiste indeling ($dao->datumtijd_eind)";
     }
 
-
     if($dtStart && $dtEnd){
       // door volgorde van de datum wordt de datum sortering gelijk aan
       // alfabetische sortering
@@ -243,6 +234,5 @@ class CRM_Wachtdienstimport_Processor {
     }
 
   }
-
 
 }
