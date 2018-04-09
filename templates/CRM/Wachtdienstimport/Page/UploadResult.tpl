@@ -1,4 +1,4 @@
-<h3>Resultaten van het laden van het Permaned bestand</h3>
+<h3>Resultaten van het laden van het Wachtdienst bestand</h3>
 
 {if $failures}
     <table>
