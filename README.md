@@ -16,8 +16,8 @@ te verwijderen.
 
 ## Structuur importbestand
 
-Het import bestand heeft de CSV indeling. Kolommen worden gescheiden door een komma (,). Zo'n bestand is aan te maken
-door binnen Excel (of LibreOffice Calc) de optie 'opslaan als CSV te gebruiken.
+Het import bestand heeft de CSV indeling. Kolommen worden gescheiden door een CiviCRM Import/Export Field Separator.
+Meestal is dat een komma (,). Zo'n bestand is aan te maken door binnen Excel (of LibreOffice Calc) de optie 'opslaan als CSV te gebruiken.
 
 De eerste regel wordt overgeslagen. 
 
