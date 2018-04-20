@@ -20,7 +20,7 @@
 </table>
 
 <h3>{ts}Gebruik{/ts}</h3>
-<p>Het import bestand heeft de CSV indeling. Kolommen worden gescheiden door een komma (,). Zo'n bestand is aan te maken
+<p>Het import bestand heeft de CSV indeling. Kolommen worden gescheiden door een {$fieldSeperator}. Zo'n bestand is aan te maken
   door binnen Excel (of LibreOffice Calc) de optie 'opslaan als CSV te gebruiken.</p>
 <p>De eerste regel wordt overgeslagen.</p>
 

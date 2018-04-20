@@ -52,6 +52,8 @@ class CRM_Wachtdienstimport_Form_Upload extends CRM_Core_Form {
       ),
     ));
     CRM_Utils_System::setTitle(E::ts('Import van wachtdienst activiteiten'));
+    $config = CRM_Core_Config::singleton();
+    $this->assign('fieldSeperator',$config->fieldSeparator);
     parent::buildQuickForm();
   }
 

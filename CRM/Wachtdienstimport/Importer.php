@@ -18,9 +18,10 @@ class CRM_Wachtdienstimport_Importer
     /**
      * CRM_Sync_PermamedImporter constructor.
      */
-    public function __construct($fieldseperator = ',',$skip=1)
+    public function __construct($skip=1)
     {
-        $this->fieldseperator=$fieldseperator;
+        $config = CRM_Core_Config::singleton();
+        $this->fieldseperator=$config->fieldSeparator;
         $this->skip = $skip;
     }
 
